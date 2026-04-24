@@ -1,84 +1,58 @@
-# 🚀 MARKETING AUTOMATION - Manual de Operaciones
+# 🚀 MARKETING AUTOMATION - Comando Central C3
 **Autor:** [SELVAGGIESTEBAN.DEV](https://selvaggiesteban.dev)
-**Plataforma:** Hostinger VPS Engine
 
-Este sistema es una suite profesional de e-mail marketing diseñada para ejecutarse de forma autónoma 24/7. Incluye motor de envío con warm-up, análisis de rebotes bilingüe, historial de campañas y remarketing dirigido.
+Este repositorio es el Comando Central (C3) que orquesta y extiende la inteligencia de mis herramientas de marketing en un único entorno blindado en el VPS.
+
+## 🔗 Repositorios Extendidos (ADN del Sistema)
+Este proyecto integra de forma **literal y sin alteraciones en su lógica base** los siguientes motores:
+
+1.  **Motor SMTP (Envío Masivo)**: [e-mail_marketing](https://github.com/selvaggiesteban/e-mail_marketing)  
+    *Extensión literal del sistema de hilos, rotación y warm-up.*
+2.  **Motor de Formularios (Vector Web)**: [form-tester](https://github.com/selvaggiesteban/form-tester)  
+    *Integración directa para el procesamiento de dominios desde la DB.*
+3.  **Analista de Auditoría**: [e-mail_marketing_reports](https://github.com/selvaggiesteban/e-mail_marketing_reports)  
+    *Lógica de extracción IMAP y generación de reportes enriquecidos.*
+4.  **Detector de Rebotes**: [analyze_bounces](https://github.com/selvaggiesteban/analyze_bounces)  
+    *ADN de reconocimiento de patrones Mailer-Daemon en EN/ES.*
+5.  **Validador de Red**: [domain_status_checker](https://github.com/selvaggiesteban/domain_status_checker)  
+    *Sanitización de dominios previa al envío.*
 
 ---
 
-## 🛠️ 1. Configuración Rápida en VPS
-
-Si es tu primera vez en el VPS, ejecuta este comando para blindar el entorno y preparar las dependencias:
-
-```bash
-chmod +x setup_vps.sh && ./setup_vps.sh
-```
+## 🔍 Contraste de Integridad
+Se garantiza un **Reciclaje Real**. El código contenido en la carpeta `src/` de este repositorio es una réplica funcional de los scripts originales. No se han abreviado funciones ni se han eliminado validaciones técnicas. El sistema ha sido simplemente "envuelto" para permitir:
+- **Control remoto vía IMAP (Bot)**: Gestión del VPS respondiendo correos con opciones 1-5.
+- **Ejecución desatendida en Crontab**: Automatización a las 07:00, 17:00 y 00:00 UTC.
+- **Conectividad con contacts.db**: Consumo directo de la base de datos para envíos duales.
 
 ---
 
-## 📅 2. Programación de Tareas (CRON)
-
-Para activar la automatización total (Lunes a Viernes), abre el editor de cron:
-```bash
-crontab -e
-```
-Pega estas líneas al final del archivo para programar el ciclo de hierro:
+## 🛠️ Operaciones del VPS (Crontab)
+Pega estas líneas en `crontab -e` tras ejecutar `./setup_vps.sh`:
 
 ```bash
-# 07:00 UTC - Inicio automático de Campaña Diaria
+# 07:00 UTC - Campaña Dual (SMTP + Forms) + Sanitización
 0 7 * * 1-5 /root/marketing_automation/venv/bin/python /root/marketing_automation/main.py --task campaign
 
-# 17:00 UTC - Generación de Reporte Corporativo y Envío a Gmail
+# 17:00 UTC - Reporte Corporativo (Cuerpo + contacts.db adjunta)
 0 17 * * 1-5 /root/marketing_automation/venv/bin/python /root/marketing_automation/main.py --task report
 
-# 00:00 UTC - Backup espejo de todo el sistema a Google Drive
+# 00:00 UTC - Backup (Imagen Local + GDrive) + Contraste DB/CSV
 0 0 * * 1-5 /root/marketing_automation/venv/bin/python /root/marketing_automation/main.py --task backup
+
+# Cada 5 min - Escucha de Comandos del Administrador (Bot IMAP)
+*/5 * * * * /root/marketing_automation/venv/bin/python /root/marketing_automation/main.py --task listen
 ```
 
 ---
 
-## 🕹️ 3. Grupos de Comandos (Casos Comunes)
-
-### 📈 Gestión de Campañas
-- **Lanzar campaña actual (según .env):**
-  `python main.py --task campaign`
-- **Lanzar y guardar en el historial:**
-  `python main.py --task campaign --name "Promo_Mayo_2026"`
-- **Forzar inicio (si hay una campaña bloqueada):**
-  `python main.py --task campaign --force`
-
-### 🧠 Memoria y Re-contactación
-- **Ver historial de campañas pasadas:**
-  `python main.py --task history`
-- **Repetir una campaña antigua (por ID):**
-  `python main.py --task campaign --load 5`
-
-### 🎯 Remarketing Dirigido (Mismo Remitente)
-Envía un nuevo mensaje a quienes recibieron un asunto previo, manteniendo la conversación con el mismo usuario de Gmail original:
-```bash
-python main.py --task remarketing --from_subject "Hola" --new_subject "Re: Seguimiento" --new_message "mensajes/seguimiento.md"
-```
-
-### 📊 Auditoría y Resguardo
-- **Generar reporte detallado ahora:**
-  `python main.py --task report`
-- **Ejecutar backup manual a Drive:**
-  `python main.py --task backup`
+## 🕹️ Menú de Comandos Remotos (Bot IMAP)
+Si envías un email con el asunto de la opción al correo del VPS:
+1. **REPORTE DB**: Resumen de contactos y estado de la base de datos.
+2. **REPORTE CAMPAÑA**: Detalle de la última ejecución realizada.
+3. **CONFIGURAR**: Cambiar Asunto/Mensaje de la próxima campaña (el sistema confirma con un OK).
+4. **REMARKETING**: Iniciar hilo nuevo sobre una campaña previa (mismo remitente).
+5. **FIX INTEGRIDAD**: Forzar el cruce de datos y reparación de la DB.
 
 ---
-
-## 🛠️ 4. Habilidades y Utilidades Extra
-
-- **Aislamiento Total:** El sistema corre en un `venv` para evitar conflictos con actualizaciones de Hostinger.
-- **Detección de Bounces:** Analiza automáticamente rebotes en Inglés y Español para limpiar tus listas.
-- **Sistema Anti-Bloqueo:** No permite lanzar dos campañas en paralelo para proteger la reputación de tus cuentas de Gmail.
-- **Warm-up Inteligente:** Aplica pausas de 1 a 10 minutos automáticamente entre cada envío.
-- **Rotación de 7 Cuentas:** Distribuye los contactos en 7 hilos paralelos para maximizar el volumen diario.
-
-## 📂 Ubicación de Archivos Críticos
-- **Logs de Envío:** `/logs/task_campaign_*.log`
-- **Base de Datos de Memoria:** `/logs/marketing_memory.db`
-- **Reportes CSV:** `/logs/reporte_corporativo_*.csv`
-
----
-© 2026 SELVAGGIESTEBAN.DEV - Sistemas de Alta Disponibilidad.
+© 2026 SELVAGGIESTEBAN.DEV - Automatización de Grado Industrial.

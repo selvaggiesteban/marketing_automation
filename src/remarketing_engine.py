@@ -11,12 +11,12 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 def get_latest_report_path():
-    """Busca el archivo detailed_sent_report_enriched.csv más reciente en el sistema."""
-    # Rutas posibles (Local y VPS)
+    """Busca el archivo de reporte enriquecido más reciente (Linux/VPS ready)."""
     search_paths = [
-        r"C:\Users\Esteban Selvaggi\Desktop\Diseño web\campaigns_reports\detailed_sent_report_enriched*.csv",
+        "logs/detailed_sent_report_enriched*.csv",
+        "reports/detailed_sent_report_enriched*.csv",
         "logs/reporte_corporativo_*.csv",
-        "reports/detailed_sent_report_enriched*.csv"
+        "data/detailed_sent_report_enriched*.csv"
     ]
     
     all_files = []

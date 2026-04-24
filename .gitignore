@@ -1,0 +1,10 @@
+.env
+__pycache__/
+venv/
+logs/
+reports/
+data/
+*.tar.gz
+*.pdf
+campaign.lock
+*.db

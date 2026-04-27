@@ -1,7 +1,7 @@
-# 🚀 MARKETING AUTOMATION - Comando Central C3
+# 🚀 MARKETING AUTOMATION - Comando Central Marketing Automation
 **Autor:** [SELVAGGIESTEBAN.DEV](https://selvaggiesteban.dev)
 
-Este repositorio es el Comando Central (C3) que orquesta y extiende la inteligencia de mis herramientas de marketing en un único entorno blindado en el VPS.
+Este repositorio es el Comando Central (Marketing Automation) que orquesta y extiende la inteligencia de mis herramientas de marketing en un único entorno blindado en el VPS.
 
 ## 🔗 Repositorios Extendidos (ADN del Sistema)
 Este proyecto integra de forma **literal y sin alteraciones en su lógica base** los siguientes motores:

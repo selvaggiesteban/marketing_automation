@@ -1,7 +1,7 @@
 #!/bin/bash
-# 🛠️ VPS SETUP C3 ENGINE - SELVAGGIESTEBAN.DEV
+# 🛠️ VPS SETUP Marketing Automation ENGINE - SELVAGGIESTEBAN.DEV
 echo "------------------------------------------------"
-echo "INSTALANDO SISTEMA CENTRAL DE COMANDO C3"
+echo "INSTALANDO SISTEMA CENTRAL DE COMANDO Marketing Automation"
 echo "------------------------------------------------"
 
 # 1. Dependencias de Sistema (Rsync para backup local, Sqlite para DB)

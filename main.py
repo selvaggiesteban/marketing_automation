@@ -12,7 +12,7 @@ from src.imap_bot import listen_imap, run_sanitizer, fix_integrity
 LOCK_FILE = "campaign.lock"
 
 def main():
-    parser = argparse.ArgumentParser(description="CENTRAL DE COMANDO C3 - SELVAGGIESTEBAN.DEV")
+    parser = argparse.ArgumentParser(description="CENTRAL DE COMANDO Marketing Automation - SELVAGGIESTEBAN.DEV")
     parser.add_argument("--task", choices=["campaign", "report", "backup", "history", "remarketing", "listen", "sanitize", "fix"], required=True)
     
     # Parámetros (si aplican a opciones manuales o menú)

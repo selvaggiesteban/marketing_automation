@@ -16,7 +16,7 @@ accounts = [
 ]
 
 def get_inbox_summary():
-    summary = "=== REPORTE DE BANDEJA UNIFICADO (DEFINITIVO ESTANDARIZADO) ===\n"
+    summary = "=== REPORTE DE BANDEJA UNIFICADO (TEST INMEDIATO) ===\n"
     summary += f"Generado: {datetime.datetime.now().strftime('%H:%M:%S')} UTC\n\n"
     
     total_unread = 0

@@ -31,7 +31,7 @@ def publish_articles(count):
         # Comando para docker de WP-CLI
         import subprocess
         content_safe = content.replace("'", "").replace('"', "")
-        cmd = f'docker exec selvaggiconsultores_wp-wordpress-1 wp post create --post_title="{tema}" --post_content="{content_safe}" --post_status="publish" --post_category="Tendencias" --allow-root'
+        cmd = f'docker exec selvaggiconsultores_wp-wordpress-1 php /usr/local/bin/wp post create --post_title="{tema}" --post_content="{content_safe}" --post_status="publish" --post_category="Tendencias" --allow-root'
         subprocess.run(cmd, shell=True)
 
 if __name__ == "__main__":

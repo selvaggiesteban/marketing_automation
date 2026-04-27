@@ -35,7 +35,7 @@ def listen_imap():
     user = os.getenv("SMTP_ACCOUNTS", "").split(",")[0].split("|")[0]
     pwd = os.getenv("SMTP_ACCOUNTS", "").split(",")[0].split("|")[1]
     
-    print("[*] Bot C3 escuchando...")
+    print("[*] Bot Marketing Automation escuchando...")
     try:
         mail = imaplib.IMAP4_SSL("imap.gmail.com")
         mail.login(user, pwd); mail.select("inbox")

@@ -1,0 +1,13 @@
+
+# VPS Cron job Blog (WP-CLI) - 5 a las 7:00 y 5 a las 17:00
+0 7 * * * /usr/bin/python3 /root/marketing_automation/src/wp_auto_blog.py >> /root/marketing_automation/logs/wp_blog.log 2>&1
+0 17 * * * /usr/bin/python3 /root/marketing_automation/src/wp_auto_blog.py >> /root/marketing_automation/logs/wp_blog.log 2>&1
+
+# VPS Cron job Reporte Unificado 17:05 (Tras el blog)
+5 17 * * * /usr/bin/python3 /root/marketing_automation/src/report_generator_v2.py >> /root/marketing_automation/logs/unified_report.log 2>&1
+
+# VPS Cron job E-MAIL_MARKETING.PY - a las 7:00 UTC
+0 7 * * * /usr/bin/python3 /root/marketing_automation/src/email_marketing_v2.py >> /root/marketing_automation/logs/email_v2.log 2>&1
+
+# VPS Cron job GMAIL Reporte de Prospección - a las 7:00 UTC
+0 7 * * * /usr/bin/python3 /root/marketing_automation/src/gmail_report.py >> /root/marketing_automation/logs/gmail_report.log 2>&1

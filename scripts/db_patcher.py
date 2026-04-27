@@ -13,7 +13,7 @@ def patch():
     c.execute("PRAGMA table_info(main)")
     cols = [r[1] for r in c.fetchall()]
     
-    # Columnas necesarias para la armonía del sistema C3
+    # Columnas necesarias para la armonía del sistema Marketing Automation
     required = {
         'smtp_procesado': 'INTEGER DEFAULT 0',
         'form_procesado': 'INTEGER DEFAULT 0',

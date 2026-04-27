@@ -1,0 +1,11 @@
+
+# LUNES A VIERNES: 07:00 UTC - Campañas y Reporte Post-Envío
+0 7 * * 1-5 /usr/bin/python3 /root/marketing_automation/src/email_marketing.py >> /root/marketing_automation/logs/email.log 2>&1
+15 7 * * 1-5 /usr/bin/python3 /root/marketing_automation/src/report_generator.py --type morning_summary >> /root/marketing_automation/logs/morning_report.log 2>&1
+
+# LUNES A VIERNES: 17:00 UTC - Reporte Bandeja de Entrada (7 Cuentas)
+0 17 * * 1-5 /usr/bin/python3 /root/marketing_automation/src/gmail_report.py --type inbox_audit >> /root/marketing_automation/logs/inbox_audit.log 2>&1
+
+# TODOS LOS DÍAS: 00:00 UTC - Backup y Mantenimiento/Integridad DB
+0 0 * * * /usr/bin/python3 /root/marketing_automation/main.py --task backup >> /root/marketing_automation/logs/backup.log 2>&1
+30 0 * * * /usr/bin/python3 /root/marketing_automation/main.py --task integrity_check >> /root/marketing_automation/logs/integrity.log 2>&1

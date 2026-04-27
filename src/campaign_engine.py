@@ -67,7 +67,7 @@ def run_form_logic(domains):
         time.sleep(1)
 
 def run_campaign():
-    print("=== CENTRAL C3: INICIANDO CAMPAÑA DUAL 07:00 UTC ===")
+    print("=== CENTRAL Marketing Automation: INICIANDO CAMPAÑA DUAL 07:00 UTC ===")
     emails, domains = get_unprocessed_from_db(limit=500)
     
     t1 = threading.Thread(target=run_smtp_logic, args=(emails,))

@@ -159,7 +159,8 @@ HTTPS_PROXY = os.getenv("FORM_TESTER_HTTPS_PROXY", "")
 class EvidenceLogger:
     """Logger that writes to both console and a log file in evidence folder."""
 
-    def __init__(self):
+    def __init__(self, browser=None):
+        self.browser = browser
         self.log_file = None
         self.log_path = None
 
@@ -208,7 +209,8 @@ def log(message: str):
 class Statistics:
     """Tracks real-time statistics for the crawling and submission process."""
 
-    def __init__(self):
+    def __init__(self, browser=None):
+        self.browser = browser
         self.domains_total = 0
         self.domains_processed = 0
         self.urls_analyzed = 0
@@ -310,7 +312,8 @@ stats = Statistics()
 class MessageLibrary:
     """Manages SMTP accounts, message templates, and contact data."""
 
-    def __init__(self):
+    def __init__(self, browser=None):
+        self.browser = browser
         self.smtp_accounts = []
         self.current_account_index = 0
         self.message_templates = []
@@ -1332,7 +1335,8 @@ class WebCrawler:
 class SMTPSender:
     """Sends emails via SMTP with bounce handling and account rotation."""
 
-    def __init__(self):
+    def __init__(self, browser=None):
+        self.browser = browser
         self._load_account()
 
     def _load_account(self):
@@ -1398,7 +1402,8 @@ class SMTPSender:
 class FormSubmitter:
     """Submits forms using Playwright for JavaScript support."""
 
-    def __init__(self):
+    def __init__(self, browser=None):
+        self.browser = browser
         self.evidence_dir = Path(EVIDENCE_DIR)
         self.evidence_dir.mkdir(exist_ok=True)
 
@@ -1886,7 +1891,8 @@ class FormSubmitter:
 class FormTester:
     """Main class for processing domains."""
 
-    def __init__(self):
+    def __init__(self, browser=None):
+        self.browser = browser
         self.smtp_sender = SMTPSender()
         self.form_submitter = FormSubmitter()
         self.suppression_list = load_suppression_list()
@@ -2222,7 +2228,7 @@ async def _run_pipeline(tasks: List[DomainTask]):
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         form_submitter = FormSubmitter(browser)
-        smtp_sender = SMTPModule()
+        smtp_sender = SMTPSender()
 
         results = await runner.run(
             tasks=tasks,

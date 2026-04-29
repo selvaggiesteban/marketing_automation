@@ -1,1 +1,0 @@
-src/sender_worker.py

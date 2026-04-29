@@ -1,1 +1,0 @@
-src/wp_auto_blog.py
